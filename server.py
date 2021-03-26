@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import json
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -28,8 +28,21 @@ data = [
 		'totalClasses': 22}
 	]
 
+@app.route('/add-class', methods=['GET'])
+def addClass():
+	name =	request.form.get('courseName')
+	idval = request.form.get('couseCode')
+	attend = request.form.get('classesAttended')
+	total = request.form.get('totalClasses')
+	newdict = {'courseName' : name,
+				'courseCode' : idval,
+				'classesAttended' : attend,
+				'totalClasses' : total}
+	data.append(newdict) 
+
 @app.route('/')
 def index():
     return json.dumps(data)
 
-app.run(host="192.168.86.129")
+if __name__=='__main__':
+	app.run(host="192.168.86.129")
