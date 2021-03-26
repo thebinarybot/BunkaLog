@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './BunkaLog.png';
 import React, {Component} from 'react';
 import './App.css';
 
@@ -78,7 +78,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Sample App.</h2>
+          <h2>Welcome to BunkaLog.</h2>
 
           {this.getContent()}           
         </header>
