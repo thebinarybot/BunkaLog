@@ -28,6 +28,10 @@ data = [
 		'totalClasses': 22}
 	]
 
+@app.route('/')
+def index():
+    return json.dumps(data)
+
 @app.route('/add-class', methods=['GET'])
 def addClass():
 	name =	request.form.get('courseName')
@@ -40,9 +44,12 @@ def addClass():
 				'totalClasses' : total}
 	data.append(newdict) 
 
-@app.route('/')
-def index():
-    return json.dumps(data)
+@app.route('/attend-class', methods=['GET'])
+def attendClass():
+	classVal = request.form.get('courseName')
+	for i in data:
+		if(i['couseName']==classVal):
+			i['classAttended']==i['classAttende']+1
 
 if __name__=='__main__':
 	app.run(host="192.168.86.129")
