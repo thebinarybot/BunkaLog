@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import AddClassForm from './AddClassForm.js'
+
 import {
   Collapse,
   Navbar,
@@ -27,7 +29,14 @@ const NavBar = (props) => {
         <NavbarToggler onClick={toggle} />
         <Nav>
           <NavItem>
-            <NavLink href="/add-class/">Add Class</NavLink>
+						<UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Add Class
+              </DropdownToggle>
+              <DropdownMenu right>
+                <AddClassForm />
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </NavItem>
         </Nav>
       </Navbar>
