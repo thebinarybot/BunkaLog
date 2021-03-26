@@ -49,7 +49,9 @@ def attendClass():
 	classVal = request.form.get('courseName')
 	for i in data:
 		if(i['couseName']==classVal):
-			i['classAttended']==i['classAttende']+1
+			i['classAttended']==i['classAttended']+1
+			i['totalClasses']==i['totalClasses']+1
+
 
 if __name__=='__main__':
 	app.run(host="192.168.86.129")
