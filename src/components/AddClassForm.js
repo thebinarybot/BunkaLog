@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 class AddClass extends React.Component {
   render() {
   return (
-    <Form action="http://192.168.86.129:5000/add-class">
+    <Form action="https://guarded-temple-66456.herokuapp.com/add-class">
 
       <FormGroup>
         <Label for="courseName">Course Name</Label>

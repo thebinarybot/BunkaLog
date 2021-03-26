@@ -21,7 +21,7 @@ class App extends React.Component {
   }
 
   loadData() {
-    axios.get("http://192.168.86.129:5000/")
+    axios.get("https://guarded-temple-66456.herokuapp.com/")
         .then( (response) => {
             this.setState({data: response});
         })
