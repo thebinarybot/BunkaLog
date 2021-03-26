@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import React, {Component} from 'react';
 import './App.css';
+import { gapi } from 'gapi-script';
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class App extends Component {
     
     window.gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
-        client_id: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
+        client_id: '724928841047-2a73bpb9m7hat1v4rhdrkefrtaedmp26.apps.googleusercontent.com',
       })
 
       // this.auth2.attachClickHandler(document.querySelector('#loginButton'), {}, this.onLoginSuccessful.bind(this))
