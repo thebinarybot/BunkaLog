@@ -30,19 +30,20 @@ data = [
 
 @app.route('/')
 def index():
-    return json.dumps(data)
+    return json.dumps(data) 
 
 @app.route('/add-class', methods=['GET'])
 def addClass():
-        name =        request.form.get('courseName')
-        idval = request.form.get('couseCode')
-        attend = request.form.get('classesAttended')
-        total = request.form.get('totalClasses')
+        name = request.args.get('courseName')
+        idval = request.args.get('courseCode')
+        attend = int(request.args.get('classesAttended'))
+        total = int(request.args.get('totalClasses'))
         newdict = {'courseName' : name,
                                 'courseCode' : idval,
                                 'classesAttended' : attend,
                                 'totalClasses' : total}
         data.append(newdict) 
+        return '<script>window.location.replace("http://192.168.86.129:3000/")</script>'
 
 @app.route('/attend-class', methods=['GET'])
 def attendClass():
