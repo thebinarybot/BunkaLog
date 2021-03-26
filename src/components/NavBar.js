@@ -3,18 +3,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import AddClassForm from './AddClassForm.js'
 
 import {
-  Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
-  NavbarText
 } from 'reactstrap';
 
 const NavBar = (props) => {

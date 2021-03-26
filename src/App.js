@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import {Component} from 'react';
 import './App.css';
 import { gapi } from 'gapi-script';
 import NavBar from './components/NavBar.js';
