@@ -7,7 +7,7 @@ import { Row, Col } from 'reactstrap';
 import axios from 'axios';
 
 class App extends React.Component {
-	constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
       data: {"data": [{
@@ -31,30 +31,31 @@ class App extends React.Component {
         })
   }
 
-	render()
-	{
-          var renderData = this.state.data["data"]
-          var cards = renderData.map(function(course, index) {
-            return (
-                <Col>
-                  <AttendanceCard courseName={course["courseName"]}
-                    courseCode={course["courseCode"]}
-                    classesAttended={course["classesAttended"]}
-                    totalClasses={course["totalClasses"]} />
-                 </Col>
+  render()
+  {
+    var renderData = this.state.data["data"]
+    var cards = renderData.map(function(course, index) {
+    return (
+       <Col>
+          <AttendanceCard courseName={course["courseName"]}
+            courseCode={course["courseCode"]}
+            classesAttended={course["classesAttended"]}
+            totalClasses={course["totalClasses"]}
+  	        reloadData={() => this.loadData()} />
+        </Col>
             );
-          })
+     });
 
-  return (
-    <div className="App">
-      <NavBar />
-      <Row sm="3">
+    return (
+      <div className="App">
+        <NavBar />
+        <Row sm="3">
           {cards}
-      </Row>
-      <p> {this.state.data["data"]["courseName"]} </p>
-    </div>
+        </Row>
+        <p> {this.state.data["data"]["courseName"]} </p>
+      </div>
   );
-	}
+  }
 }
 
 export default App;
