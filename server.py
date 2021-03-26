@@ -52,6 +52,12 @@ def attendClass():
 			i['classAttended']==i['classAttended']+1
 			i['totalClasses']==i['totalClasses']+1
 
+@app.route('/bunk-class', methods=['GET'])
+def bunkClass():
+	classVal = request.form.get('courseName')
+	for i in data:
+		if(i['couseName']==classVal):
+			i['totalClasses']==i['totalClasses']+1
 
 if __name__=='__main__':
 	app.run(host="192.168.86.129")
