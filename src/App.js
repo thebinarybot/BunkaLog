@@ -99,7 +99,6 @@ class App extends React.Component {
     
   }
   
-
   render()
   {
     var renderData = this.state.data["data"]
