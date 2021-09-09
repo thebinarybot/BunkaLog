@@ -5,6 +5,7 @@ import {
   Row, Col
 } from 'reactstrap';
 import axios from 'axios';
+import config from '../config.js';
 
 class AttendanceCard extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class AttendanceCard extends React.Component {
   }
 
   attendClass() {
-    var url = "http://192.168.86.129:5000/attend-class?courseCode=" + this.state.name;
+    var url = config.PROXY_URL + "/attend-class?courseCode=" + this.state.name;
     axios.get(url)
         .then( (response) => {
           this.state.loadData();
@@ -27,7 +28,7 @@ class AttendanceCard extends React.Component {
   }
 
   bunkClass() {
-    var url = "http://192.168.86.129:5000/bunk-class?courseCode=" + this.state.name;
+    var url = config.PROXY_URL + "/bunk-class?courseCode=" + this.state.name;
     axios.get(url)
         .then( (response) => {
           this.state.loadData();

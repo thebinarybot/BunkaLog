@@ -4,6 +4,7 @@ import NavBar from './components/NavBar.js';
 import AttendanceCard from './components/AttendanceCard.js';
 import { Row, Col } from 'reactstrap';
 import axios from 'axios';
+import config from './config.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class App extends React.Component {
   }
 
   loadData() {
-    axios.get("http://192.168.86.129:5000/")
+    axios.get(config.PROXY_URL + '/')
         .then( (response) => {
             this.setState({data: response});
         })

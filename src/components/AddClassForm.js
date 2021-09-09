@@ -1,10 +1,12 @@
 import React from 'react';
+import config from '../config.js';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class AddClass extends React.Component {
   render() {
+  var formUrl = config.PROXY_URL + '/add-class';
   return (
-    <Form action="http://192.168.86.129:5000/add-class">
+    <Form action = {formUrl} >
 
       <FormGroup>
         <Label for="courseName">Course Name</Label>
