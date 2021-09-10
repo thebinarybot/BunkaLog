@@ -11,7 +11,6 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSignedIn: false,
       onLoginSuccess: props.onLoginSuccess,
     }
   }

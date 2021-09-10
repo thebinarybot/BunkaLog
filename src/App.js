@@ -39,8 +39,13 @@ class App extends React.Component {
     localStorage.setItem('isUserLoggedIn', true);
   }
 
-  render()
+  logoutSucceed()
   {
+    this.setState({isUserLoggedIn: false});
+    localStorage.setItem('isUserLoggedIn', false);
+  }
+
+  onLoggedIn() {
     var renderData = this.state.data["data"]
     var cards = renderData.map(function(course, index) {
     return (
@@ -54,22 +59,33 @@ class App extends React.Component {
             );
      });
 
-    if (this.state.isUserLoggedIn) {
       return (
       <div className="App">
-        <NavBar />
+        <NavBar onLogout={() => this.logoutSucceed()} />
         <Row sm="3">
           {cards}
         </Row>
       </div>
       );
-    }
-    else {
+  }
+
+  onLoggedOut() {
       return (
         <div className="App">
         <LoginPage onLoginSuccess={() => this.loginSucceed()} />
         </div>
       );
+  }
+
+  render()
+  {
+    const isUserLoggedIn = this.state.isUserLoggedIn;
+    console.log(isUserLoggedIn);
+    if (isUserLoggedIn) {
+      return this.onLoggedIn();
+    }
+    else {
+      return this.onLoggedOut();
     }
   }
 }
