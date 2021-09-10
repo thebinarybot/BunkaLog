@@ -18,7 +18,7 @@ class App extends React.Component {
         "totalClasses": "Loading"
         }]
       },
-      isUserLoggedIn: false,
+      isUserLoggedIn: localStorage.getItem('isUserLoggedIn') || false,
     };
     this.loadData();
   }
@@ -36,6 +36,7 @@ class App extends React.Component {
   loginSucceed()
   {
     this.setState({isUserLoggedIn: true});
+    localStorage.setItem('isUserLoggedIn', true);
   }
 
   render()
