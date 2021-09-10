@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import NavBar from './components/NavBar.js';
 import AttendanceCard from './components/AttendanceCard.js';
+import LoginPage from './components/loginPage.js';
 import { Row, Col } from 'reactstrap';
 import axios from 'axios';
 import config from './config.js';
@@ -17,6 +18,7 @@ class App extends React.Component {
         "totalClasses": "Loading"
         }]
       },
+      isUserLoggedIn: false,
     };
     this.loadData();
   }
@@ -29,6 +31,11 @@ class App extends React.Component {
         .catch( (error) => {
             console.log(error);
         })
+  }
+
+  loginSucceed()
+  {
+    this.setState({isUserLoggedIn: true});
   }
 
   render()
@@ -46,14 +53,23 @@ class App extends React.Component {
             );
      });
 
-    return (
+    if (this.state.isUserLoggedIn) {
+      return (
       <div className="App">
         <NavBar />
         <Row sm="3">
           {cards}
         </Row>
       </div>
-  );
+      );
+    }
+    else {
+      return (
+        <div className="App">
+        <LoginPage onLoginSuccess={() => this.loginSucceed()} />
+        </div>
+      );
+    }
   }
 }
 
