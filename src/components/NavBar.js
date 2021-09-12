@@ -5,7 +5,6 @@ import { GoogleLogout } from 'react-google-login';
 
 import {
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   NavItem,

@@ -18,12 +18,11 @@ class App extends React.Component {
         "totalClasses": "Loading"
         }]
       },
-      isUserLoggedIn: localStorage.getItem('isUserLoggedIn') || false,
+      isUserLoggedIn: JSON.parse(localStorage.getItem('isUserLoggedIn')) || false,
     };
-    this.loadData();
   }
 
-  loadData() {
+  componentDidMount() {
     axios.get(config.PROXY_URL + '/')
         .then( (response) => {
             this.setState({data: response});
