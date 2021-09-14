@@ -6,6 +6,7 @@ import LoginPage from './components/loginPage.js';
 import { Row, Col } from 'reactstrap';
 import axios from 'axios';
 import config from './config.js';
+import Cookies from 'js-cookie';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(config.PROXY_URL + '/')
+    //console.log(Cookies.get('bunkalog_session_id'));
+    axios.get(config.PROXY_URL + '/user', {params: {'session_id': Cookies.get('bunkalog_session_id')}})
         .then( (response) => {
             this.setState({data: response});
         })
@@ -32,8 +34,32 @@ class App extends React.Component {
         })
   }
 
-  loginSucceed()
+  loginSucceed(response)
   {
+    console.log(response);
+
+    const requestOption = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      url: config.PROXY_URL + '/login',
+      data: {response}
+    }
+
+    axios(requestOption)
+      .then(function (response) {
+        //console.log(response.data);
+        const session_id = response.data;
+        console.log(session_id);
+        //console.log('response' + response);
+        Cookies.set('bunkalog_session_id', session_id);
+      })
+/*      .then(data => {
+        console.log('data ' + data);
+      })*/
+      .catch(function (error) {
+        console.log(error);
+      });
+
     this.setState({isUserLoggedIn: true});
     localStorage.setItem('isUserLoggedIn', true);
   }
@@ -71,7 +97,7 @@ class App extends React.Component {
   onLoggedOut() {
       return (
         <div className="App">
-        <LoginPage onLoginSuccess={() => this.loginSucceed()} />
+        <LoginPage onLoginSuccess={(response) => this.loginSucceed(response)} />
         </div>
       );
   }
@@ -79,7 +105,6 @@ class App extends React.Component {
   render()
   {
     const isUserLoggedIn = this.state.isUserLoggedIn;
-    console.log(isUserLoggedIn);
     if (isUserLoggedIn) {
       return this.onLoggedIn();
     }
