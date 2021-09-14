@@ -12,12 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {"data": [{
-        "courseName": "Loading",
-        "courseCode": "Loading",
-        "classesAttended": "Loading",
-        "totalClasses": "Loading"
-        }]
+      data: {"data": []
       },
       isUserLoggedIn: JSON.parse(localStorage.getItem('isUserLoggedIn')) || false,
     };
@@ -78,8 +73,7 @@ class App extends React.Component {
           <AttendanceCard courseName={course["courseName"]}
             courseCode={course["courseCode"]}
             classesAttended={course["classesAttended"]}
-            totalClasses={course["totalClasses"]}
-  	        reloadData={() => this.loadData()} />
+            totalClasses={course["totalClasses"]} />
         </Col>
             );
      });

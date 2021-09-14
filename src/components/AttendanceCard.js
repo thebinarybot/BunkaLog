@@ -4,6 +4,7 @@ import {
   CardTitle, CardSubtitle, Button, Progress,
   Row, Col
 } from 'reactstrap';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import config from '../config.js';
 
@@ -11,16 +12,38 @@ class AttendanceCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: props.courseCode,
-      loadData: props.reloadData,
+      courseName: props.courseName,
+      courseCode: props.courseCode,
+      attendClass: props.classesAttended,
+      totalClasses: props.totalClasses,
     };
   }
 
   attendClass() {
-    var url = config.PROXY_URL + "/attend-class?courseCode=" + this.state.name;
-    axios.get(url)
+    const requestOptions = {
+      method: 'POST',
+      headers: {'bunkalog_session_id': Cookies.get('bunkalog_session_id')},
+      url: config.PROXY_URL + "/attend-class",
+      data: {
+        courseCode: this.state.courseCode
+      }
+    }
+
+    axios(requestOptions)
         .then( (response) => {
-          this.state.loadData();
+          axios.get(config.PROXY_URL + '/user/course',
+            {params: {
+              'session_id': Cookies.get('bunkalog_session_id'),
+              'courseCode': this.state.courseCode
+            }})
+            .then( (response) => {
+              const resp = response.data;
+              //console.log(resp);
+              this.setState({attendClass: resp['classesAttended'], totalClasses: resp['totalClasses']});
+            })
+            .catch( (error) => {
+              console.log(error);
+            });
         })
         .catch( (error) => {
             console.log(error);
@@ -28,31 +51,50 @@ class AttendanceCard extends React.Component {
   }
 
   bunkClass() {
-    var url = config.PROXY_URL + "/bunk-class?courseCode=" + this.state.name;
-    axios.get(url)
+    const requestOptions = {
+      method: 'POST',
+      headers: {'bunkalog_session_id': Cookies.get('bunkalog_session_id')},
+      url: config.PROXY_URL + "/bunk-class",
+      data: {
+        courseCode: this.state.courseCode
+      }
+    }
+
+    axios(requestOptions)
         .then( (response) => {
-          this.state.loadData();
+          axios.get(config.PROXY_URL + '/user/course',
+            {params: {
+              'session_id': Cookies.get('bunkalog_session_id'),
+              'courseCode': this.state.courseCode
+            }})
+            .then( (response) => {
+              const resp = response.data;
+              //console.log(resp);
+              this.setState({attendClass: resp['classesAttended'], totalClasses: resp['totalClasses']});
+            })
+            .catch( (error) => {
+              console.log(error);
+            });
         })
         .catch( (error) => {
             console.log(error);
         })
   }
 
-  render(props) {
-  this.state.name = this.props.courseCode;
+  render() {
   return (
     <div>
       <Card>
         <CardBody>
-          <CardTitle tag="h5">{this.props.courseName}</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">{this.props.courseCode}</CardSubtitle>
-          <CardText>Attended {this.props.classesAttended} out of {this.props.totalClasses} classes</CardText>
+          <CardTitle tag="h5">{this.state.courseName}</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted">{this.state.courseCode}</CardSubtitle>
+          <CardText>Attended {this.state.attendClass} out of {this.state.totalClasses} classes</CardText>
         </CardBody>
         <CardBody>
           <Progress multi >
-            <Progress bar value={this.props.classesAttended} max={this.props.totalClasses} />
-            <Progress bar value={this.props.totalClasses - this.props.classesAttended}
-              color="danger" max={this.props.totalClasses} />
+            <Progress bar value={this.state.attendClass} max={this.state.totalClasses} />
+            <Progress bar value={this.state.totalClasses - this.state.attendClass}
+              color="danger" max={this.state.totalClasses} />
           </Progress>
         </CardBody>
         <CardBody>
