@@ -63,6 +63,20 @@ class App extends React.Component {
   {
     this.setState({isUserLoggedIn: false});
     localStorage.setItem('isUserLoggedIn', false);
+
+    const requestOption = {
+      method: 'POST',
+      params: {'session_id': Cookies.get('bunkalog_session_id')},
+      url: config.PROXY_URL + '/logout'
+    }
+
+    axios(requestOption)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
   }
 
   onLoggedIn() {
