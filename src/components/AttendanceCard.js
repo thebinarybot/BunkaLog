@@ -22,7 +22,7 @@ class AttendanceCard extends React.Component {
   attendClass() {
     const requestOptions = {
       method: 'POST',
-      headers: {'bunkalog_session_id': Cookies.get('bunkalog_session_id')},
+      params: {'session_id': Cookies.get('bunkalog_session_id')},
       url: config.PROXY_URL + "/attend-class",
       data: {
         courseCode: this.state.courseCode
@@ -53,7 +53,7 @@ class AttendanceCard extends React.Component {
   bunkClass() {
     const requestOptions = {
       method: 'POST',
-      headers: {'bunkalog_session_id': Cookies.get('bunkalog_session_id')},
+      params: {'session_id': Cookies.get('bunkalog_session_id')},
       url: config.PROXY_URL + "/bunk-class",
       data: {
         courseCode: this.state.courseCode

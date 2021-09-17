@@ -34,7 +34,7 @@ class AddClass extends React.Component
   {
     const requestOptions = {
       method: 'POST',
-      headers: {'bunkalog_session_id': Cookies.get('bunkalog_session_id')},
+      params: {'session_id': Cookies.get('bunkalog_session_id')},
       url: config.PROXY_URL + '/add-class',
       data: this.state,
     }
