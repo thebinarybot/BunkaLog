@@ -3,6 +3,7 @@ import config from '../config.js';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 
 class AddClass extends React.Component
 {
@@ -14,6 +15,7 @@ class AddClass extends React.Component
       courseCode: '',
       classesAttended: 0,
       totalClasses: 0,
+      formSubmittedSuccessfully: false
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -42,7 +44,8 @@ class AddClass extends React.Component
     axios(requestOptions)
       .then(function (response) {
         console.log(response);
-      })
+        this.setState({formSubmittedSuccessfully: true});
+      }.bind(this))
       .catch(function (error) {
         console.log(error);
       });
@@ -51,7 +54,12 @@ class AddClass extends React.Component
   }
 
   render() {
-  var formUrl = config.PROXY_URL + '/add-class';
+    if (this.state.formSubmittedSuccessfully) {
+      return (
+        <Redirect to="" />
+      );
+    }
+
   return (
     <Form onSubmit={this.handleSubmit} >
 

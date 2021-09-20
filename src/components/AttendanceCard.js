@@ -20,6 +20,8 @@ class AttendanceCard extends React.Component {
   }
 
   attendClass() {
+    console.log('Function Call: AttendanceCard.js: attendClass()');
+
     const requestOptions = {
       method: 'POST',
       params: {'session_id': Cookies.get('bunkalog_session_id')},
@@ -51,6 +53,8 @@ class AttendanceCard extends React.Component {
   }
 
   bunkClass() {
+    console.log('Function Call: AttendanceCard.js: bunkClass()');
+
     const requestOptions = {
       method: 'POST',
       params: {'session_id': Cookies.get('bunkalog_session_id')},
@@ -82,6 +86,8 @@ class AttendanceCard extends React.Component {
   }
 
   render() {
+    console.log('Function Call: AttendanceCard.js: render()');
+
   return (
     <div>
       <Card>

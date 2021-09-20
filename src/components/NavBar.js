@@ -1,57 +1,42 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import AddClassForm from './AddClassForm.js'
 import { GoogleLogout } from 'react-google-login';
+import config from '../config.js';
 
 import {
   Navbar,
   NavbarBrand,
   Nav,
   NavItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
+  NavLink
 } from 'reactstrap';
 
-class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      onLogout: false,
-    }
-    if (props.onLogout) {
-      this.state.onLogout = props.onLogout;
-    }
-  }
+function NavBar(props)
+{
+  console.log('Function Call: NavBar.js: render()');
+  console.log('Variable Value Check: NavBar.js: props.isUserLoggedIn ' + props.isUserLoggedIn);
 
-  render() {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">bunkalog</NavbarBrand>
-        <Nav>
-          <NavItem>
-						<UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Add Class
-              </DropdownToggle>
-              <DropdownMenu right>
-                <AddClassForm />
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </NavItem>
-          <NavItem>
-            <GoogleLogout
-              clientId="724928841047-qeoov5rpo41njs7e09moms868eknu2fp.apps.googleusercontent.com"
-              buttonText="Logout"
-              onLogoutSuccess={() => this.state.onLogout()}
-            />
-          </NavItem>
-        </Nav>
+        <NavbarBrand href={config.BASEPATH}>bunkalog</NavbarBrand>
+        { (props.isUserLoggedIn) &&
+          <Nav>
+            <NavItem>
+              <NavLink href={config.BASEPATH + "#/add-new-class"}>Add New Class</NavLink>
+            </NavItem>
+            <NavItem>
+              <GoogleLogout
+                clientId="724928841047-qeoov5rpo41njs7e09moms868eknu2fp.apps.googleusercontent.com"
+                buttonText="Logout"
+                onLogoutSuccess={() => props.onLogout()}
+              />
+            </NavItem>
+          </Nav>
+        }
       </Navbar>
     </div>
   );
-  }
 }
 
 export default NavBar;
