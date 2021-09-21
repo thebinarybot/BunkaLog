@@ -5,51 +5,64 @@ import axios from 'axios';
 import config from '../config.js';
 import Cookies from 'js-cookie';
 
-import { Row, Col } from 'reactstrap';
+import {Row, Col} from 'reactstrap';
 
 
-
-class HomePageView extends React.Component
-{
-  constructor(props)
-  {
+/**
+ * The default layout shown when a user is logged in. Displays all attendance
+ * cards.
+ */
+class HomePageView extends React.Component {
+  /**
+   * @param {Props} props No props expected
+   */
+  constructor(props) {
     super(props);
     this.state = {
       data: {
-        "data": []
+        'data': [],
       },
     };
   }
 
+
+  /**
+   * Used to fetch all attendance data of a user from API server when component
+   * is mounted
+   */
   componentDidMount() {
-    //console.log(Cookies.get('bunkalog_session_id'));
+    // console.log(Cookies.get('bunkalog_session_id'));
     console.log('Function Call: HomePageView.js: componentDidMount()');
 
-    axios.get(config.PROXY_URL + '/user', {params: {'session_id': Cookies.get('bunkalog_session_id')}})
+    axios.get(config.PROXY_URL + '/user',
+        {params: {'session_id': Cookies.get('bunkalog_session_id')}})
         .then( (response) => {
-            this.setState({data: response});
+          this.setState({data: response});
         })
         .catch( (error) => {
-            console.log(error);
-        })
+          console.log(error);
+        });
   }
 
-  render()
-  {
+
+  /**
+   * @return {string} HomePageView's HTML
+   */
+  render() {
     console.log('Function Call: HomePageView.js: render()');
 
-    var renderData = this.state.data["data"]
-    var cards = renderData.map(function(course, index) {
+    const renderData = this.state.data['data'];
+    const cards = renderData.map(function(course, index) {
       return (
-        <Col>
-          <AttendanceCard courseName={course["courseName"]}
-            courseCode={course["courseCode"]}
-            classesAttended={course["classesAttended"]}
-            totalClasses={course["totalClasses"]} />
+        <Col key={index}>
+          <AttendanceCard courseName={course['courseName']}
+            courseCode={course['courseCode']}
+            classesAttended={course['classesAttended']}
+            totalClasses={course['totalClasses']} />
         </Col>
       );
     });
-  
+
     return (
       <div className="App">
         <Row sm="3">
